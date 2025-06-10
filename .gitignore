@@ -1,0 +1,14 @@
+# Создание основных веток
+git checkout -b main
+git checkout -b develop
+
+# Создание hotfix ветки
+git checkout develop
+git checkout -b hotfix
+# Внесите изменения...
+git add .
+git commit -m "Hotfix changes"
+
+# Слияние hotfix в develop
+git checkout develop
+git merge hotfix
