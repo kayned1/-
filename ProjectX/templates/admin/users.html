@@ -1,0 +1,47 @@
+<!-- templates/admin/users.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Users List</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Admin</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                {% if user.is_admin %}
+                    <span class="badge bg-success">Admin</span>
+                {% else %}
+                    <span class="badge bg-secondary">User</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if user.id != current_user.id %}
+                <form method="POST" action="{{ url_for('toggle_admin', user_id=user.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-sm {% if user.is_admin %}btn-warning{% else %}btn-success{% endif %}">
+                        {% if user.is_admin %}
+                            Revoke Admin
+                        {% else %}
+                            Make Admin
+                        {% endif %}
+                    </button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

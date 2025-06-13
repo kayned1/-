@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Admin - Files{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Files Management</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Size</th>
+            <th>Upload Date</th>
+            <th>Links</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for file in files %}
+        <tr>
+            <td>{{ file.id }}</td>
+            <td>{{ file.original_name }}</td>
+            <td>{{ file.owner.username }}</td>
+            <td>{{ file.get_size_mb() }} MB</td>
+            <td>{{ file.upload_date.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>{{ file.download_links.count() }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

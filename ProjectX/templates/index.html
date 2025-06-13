@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Welcome to FileHost</h1>
+        <p class="card-text">
+            {% if current_user.is_authenticated %}
+                Upload and share your files securely.
+            {% else %}
+                Please login or register to start using our file hosting service.
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}

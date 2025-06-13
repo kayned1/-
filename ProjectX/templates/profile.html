@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Edit Profile</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data" action="{{ url_for('profile') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.full_name.label(class="form-label") }}
+                        {{ form.full_name(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.avatar.label(class="form-label") }}
+                        {{ form.avatar(class="form-control") }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

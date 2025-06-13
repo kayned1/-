@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Admin - Links{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Download Links Management</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Token</th>
+            <th>File</th>
+            <th>Owner</th>
+            <th>Created</th>
+            <th>Expires</th>
+            <th>Downloads</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for link in links %}
+        <tr>
+            <td>{{ link.token|truncate(10) }}</td>
+            <td>{{ link.file.original_name|truncate(20) }}</td>
+            <td>{{ link.file.owner.username }}</td>
+            <td>{{ link.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>{{ link.expires_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>{{ link.download_count }}</td>
+            <td>
+                {% if link.is_active and not link.is_expired() %}
+                    <span class="badge bg-success">Active</span>
+                {% else %}
+                    <span class="badge bg-secondary">Expired</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
